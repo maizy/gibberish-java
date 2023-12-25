@@ -1,5 +1,6 @@
 plugins {
   id 'java'
+  id 'com.palantir.git-version' version '3.0.0'
 }
 
 repositories {
@@ -7,7 +8,7 @@ repositories {
 }
 
 group = 'dev.maizy'
-version = '0.0.1-SNAPSHOT'
+version = gitVersion()
 sourceCompatibility = '11'
 
 
