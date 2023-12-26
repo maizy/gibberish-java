@@ -1,6 +1,8 @@
 plugins {
-  id 'java'
+  id 'java-library'
   id 'com.palantir.git-version' version '3.0.0'
+  id 'maven-publish'
+  id 'signing'
 }
 
 repositories {
@@ -20,6 +22,58 @@ dependencies {
 test {
   useJUnitPlatform()
   testLogging {
-    events "passed", "skipped", "failed"
+    events 'passed', 'skipped', 'failed'
   }
+}
+
+java {
+  withJavadocJar()
+  withSourcesJar()
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+      pom {
+        name = 'Gibberish'
+        description = 'Generate gibberish'
+        url = 'https://github.com/maizy/gibberish-java'
+        licenses {
+          license {
+            name = 'The Apache License, Version 2.0'
+            url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+        developers {
+          developer {
+            id = 'maizy'
+            name = 'Nikita Kovalev'
+            email = 'nikita@maizy.dev'
+          }
+        }
+        scm {
+          connection = 'scm:git:git://github.com/maizy/gibberish-java.git'
+          developerConnection = 'scm:git:ssh://github.com:maizy/gibberish-java.git'
+          url = 'https://github.com/maizy/gibberish-java/tree/main'
+        }
+      }
+    }
+  }
+  repositories {
+    maven {
+      def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+      def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+      url = (version ==~ /^\d+\.\d+\.\d+$/) ? releasesRepoUrl : snapshotsRepoUrl
+      credentials {
+        username project.ossrhUsername
+        password project.ossrhPassword
+      }
+    }
+  }
+}
+
+signing {
+  useGpgCmd()
+  sign publishing.publications.mavenJava
 }

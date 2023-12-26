@@ -1,0 +1,5 @@
+signing.gnupg.executable=/usr/local/bin/gpg
+signing.gnupg.keyName=A0123456
+
+ossrhUsername=maven-central-login
+ossrhPassword=maven-central-password
