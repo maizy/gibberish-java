@@ -1,6 +1,29 @@
 # gibberish-java
 
-Java port of [greghaskins/gibberish/](https://github.com/greghaskins/gibberish/)
+Java port of [greghaskins/gibberish](https://github.com/greghaskins/gibberish/).
+
+## Get it
+
+Gradle:
+
+```
+repositories {
+  mavenCentral()
+}
+dependencies {
+  implementation 'dev.maizy:gibberish:1.0.0'
+}
+```
+
+Maven:
+
+```
+<dependency>
+    <groupId>dev.maizy</groupId>
+    <artifactId>gibberish</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 ## Usage
 
